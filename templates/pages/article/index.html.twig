@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SymArticle - Mes articles
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success mt-4">
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		{% if not articles.items is same as([]) %}
+			<h1>Mes articles</h1>
+
+			<a href="{{ path('article.new') }}" class="btn btn-primary">
+				Créer un article
+			</a>
+
+			<div class="count mt-4">Il y a
+				{{ articles.getTotalItemCount }}
+				article(s)
+			</div>
+
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">Numéro</th>
+						<th scope="col">Nom</th>
+						<th scope="col">Corp</th>
+						<th scope="col">theme</th>
+						<th scope="col">Date de création</th>
+						<th scope="col">Edition</th>
+						<th scope="col">Suppresion</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for article in articles %}
+						<tr class="table-primary">
+							<th scope="row">{{ article.id }}</th>
+							<td>{{ article.name }}</td>
+							<td>{{ article.description }}</td>
+							<td>{{ article.theme }}</td>
+							<td>{{ article.createdAt|date('d/m/Y') }}</td>
+							<td>
+								<a href="{{ path('article.edit', { id: article.id }) }}" class="btn btn-info">Modifier</a>
+							</td>
+							<td>
+								<a href="{{ path('article.delete', { id: article.id }) }}" class="btn btn-warning">Supprimer</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+			<div class="navigation d-flex justify-content-center mt-4">
+				{{ knp_pagination_render(articles) }}
+			</div>
+		{% else %}
+			<h4>Il n'y a pas d' article</h4>
+
+			<a href="{{ path('article.new') }}" class="btn btn-primary">
+				Créer un article
+			</a>
+		{% endif %}
+	</div>
+{% endblock %}
