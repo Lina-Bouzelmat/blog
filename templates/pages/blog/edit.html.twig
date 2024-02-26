@@ -4,7 +4,7 @@
 <div class="container">
 
 
-    <h1 class="mt-4">Modification de l'Artcile</h1>
+    <h1 class="mt-4">Modification du blog</h1>
 
 
     {% for message in app.flashes('success') %}
@@ -13,8 +13,7 @@
     </div>
     {% endfor %}
 
-
-    {{ form_start(form) }}
+        {{ form_start(form) }}
 
     <div class="form-group">
             {{ form_label(form.name) }}
@@ -24,10 +23,10 @@
             </div>
     </div>
     <div class="form-group">
-            {{ form_label(form.description) }}
-            {{ form_widget(form.description) }}
+            {{ form_label(form.createur) }}
+            {{ form_widget(form.createur) }}
             <div class="form-error">
-            {{ form_errors(form.description) }}
+            {{ form_errors(form.createur) }}
             </div>
     </div>
     <div class="form-group">
@@ -38,9 +37,27 @@
             </div>
     </div>
     <div class="form-group">
+            {{ form_label(form.details) }}
+            {{ form_widget(form.details) }}
+            <div class="form-error">
+            {{ form_errors(form.details) }}
+            </div>
+    </div>
+    <div class="form-group">
+            {{ form_label(form.isFavorite) }}
+            {{ form_widget(form.isFavorite) }}
+            <div class="form-error">
+            {{ form_errors(form.isFavorite) }}
+            </div>
+    </div>
+    
+    {{ form_row(form.articles) }}
+
+    <div class="form-group">
             {{ form_row(form.submit) }}
     </div>
 
+    {{ form_end(form) }}
 
 </div>
 {% endblock %}

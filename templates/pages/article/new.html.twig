@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}SymArticle- Nouvel Article{% endblock %}
 {% block body %} 
 <div class="container">
 
@@ -40,7 +40,7 @@
     <div class="form-group">
             {{ form_row(form.submit) }}
     </div>
+        {{ form_end(form) }}
 
-
-</di>
+</div>
 {% endblock %}

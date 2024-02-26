@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SymBlog - Mes Blog
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		{% if not blogs.items is same as([]) %}
+			<h1>Mes Blog</h1>
+
+			<a href="{{ path('blog.new') }}" class="btn btn-primary">
+				Créer un blog
+			</a>
+
+            {% for message in app.flashes('success') %}
+			<div class="alert alert-success mt-4">
+				{{ message }}
+			</div>
+		{% endfor %}
+
+            <a href="{{ path('article.new') }}" class="btn btn-primary">
+				Créer un article
+			</a>
+
+			<div class="count mt-4">Il y a
+				{{ blogs.getTotalItemCount }}
+				blog(s)
+			</div>
+
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">Numéro</th>
+						<th scope="col">Nom</th>
+						<th scope="col">createur</th>
+						<th scope="col">theme</th>
+                        <th scope="col">details</th>
+						<th scope="col">Date de création</th>
+						<th scope="col">Edition</th>
+						<th scope="col">Suppresion</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for blog in blogs %}
+						<tr class="table-primary">
+							<th scope="row">{{ blog.id }}</th>
+							<td>{{ blog.name }}</td>
+                            <td>
+                            {% if blog.createur is null %}
+                                non renseigné
+                            {% else %}
+                            {{ blog.createur }}
+                            {% endif %}
+                            </td>
+							<td>{{ blog.theme }}</td>
+							<td>{{ blog.details }}</td>
+							<td>{{ blog.createdAt|date('d/m/Y') }}</td>
+							<td>
+								<a href="{{ path('blog.edit', { id: blog.id }) }}" class="btn btn-info">Modifier</a>
+							</td>
+							<td>
+								<a href="{{ path('blog.delete', { id: blog.id }) }}" class="btn btn-warning">Supprimer</a>
+							</td>
+						</tr>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+			<div class="navigation d-flex justify-content-center mt-4">
+				{{ knp_pagination_render(blogs) }}
+			</div>
+		{% else %}
+			<h4>Il n'y a pas de blog</h4>
+
+			<a href="{{ path('blog.new') }}" class="btn btn-primary">
+				Créer un blog
+			</a>
+		{% endif %}
+	</div>
+{% endblock %}

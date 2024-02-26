@@ -25,13 +25,11 @@ class ArticleType extends AbstractType
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
-                'contraints' => [
+                'constraints' => [
                     new Assert\Length(['min' => 2, 'max' => 30]),
                     new Assert\NotBlank()
                 ]
-            ]
-            
-            )
+            ])
             ->add('description', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
@@ -41,7 +39,7 @@ class ArticleType extends AbstractType
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
-                'contraints' => [
+                'constraints' => [
                     new Assert\Length(['min' => 10]),
                     new Assert\NotBlank()
                 ]

@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ArticleController extends AbstractController
 {
-    #[Route('/article', name: 'app_article')]
+    #[Route('/article', name: 'article.index')]
     public function index(ArticleRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
         
@@ -25,14 +25,14 @@ class ArticleController extends AbstractController
             10
         );
 
-        return $this->render('  pages/article/index.html.twig', [
+        return $this->render('pages/article/index.html.twig', [
             'articles' => $articles,
 
         ]);
     }
 
     #[Route('/article/nouveau', name: 'article.new')]
-    public function new(Request $request, EntityManager $manager) : Response
+    public function new(Request $request, EntityManagerInterface $manager) : Response
     {
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
@@ -58,7 +58,7 @@ class ArticleController extends AbstractController
     }
 
     #[Route('/article/edition/{id}', name: 'article.edit')]
-    public function edit(Article $article, Request $request,EntityManager $manager) : Response
+    public function edit(Article $article, Request $request,EntityManagerInterface $manager) : Response
     {
         $form = $this->createForm(ArticleType::class, $article);  
         $form->handleRequest($request);
@@ -82,7 +82,7 @@ class ArticleController extends AbstractController
     }
 
     #[Route('/article/suppression/{id}', name: 'article.delete')]
-    public function delete(EntityManager $manager,Article $article): Response
+    public function delete(EntityManagerInterface $manager,Article $article): Response
     {
 
         $manager->remove($article);
