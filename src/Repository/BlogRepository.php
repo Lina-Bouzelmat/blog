@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Blog;
+use App\Entity\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

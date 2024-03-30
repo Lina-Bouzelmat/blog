@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\article;
+use App\Entity\Article;
 use App\Entity\Blog;
 use App\Repository\ArticleRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -94,10 +94,8 @@ class BlogType extends AbstractType
             ->add('submit',SubmitType::class, [
                 'attr' =>[
                     'class' => 'btn btn-primary mt-4'
-                ],
-                'label' => 'sauvegarde'
-            ])
-        ;
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
